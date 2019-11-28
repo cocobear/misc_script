@@ -60,8 +60,8 @@ def insert_ensure(logger, conn, data):
     max_sn = 0
     max_id = 0
     success = False
-    try:
-        while not success:
+    while not success:
+        try:
             with conn.cursor() as cursor:
                 cursor.execute('select max(sn) from record')
                 results = cursor.fetchall()
@@ -78,16 +78,16 @@ def insert_ensure(logger, conn, data):
                 success = True
                 #print('%s write %d '%(__file__,max_sn+1))
                 logger.debug('%s write %d '%(__file__,max_sn+1))
-    except KeyboardInterrupt:
-        logger.error('Exit because of Ctrl+C pressed!')
-        sys.exit()
-    except:
-        pass
-        #print("write error:", sys.exc_info()[0])
+        except KeyboardInterrupt:
+            logger.error('Exit because of Ctrl+C pressed!')
+            sys.exit()
+        except:
+            pass
+            #print("write error:", sys.exc_info()[0])
 
-        # print()
-    finally:
-        pass
+            # print()
+        finally:
+            pass
             #conn.close()
 
 def main():
